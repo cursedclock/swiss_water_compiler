@@ -10,6 +10,10 @@ int main(){
     }
     if i===2{
     }
+    // fsdafsafdsag
+/* fgdgsdfsgfds
+  dfsafds
+fdasfas*/
 }'''
 
 my_lexer = new_lexer()

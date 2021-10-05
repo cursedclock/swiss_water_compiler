@@ -18,13 +18,12 @@ t_STRINGLITERAL = r'\"[^\n"]*\"'
 t_DOUBLELITERAL = r'[0-9]+\.[0-9]*((e|E)\+[0-9]+)?'
 t_INTLITERAL = r'([0-9]+)|(0(x|X)[0-9a-fA-F]+)'
 t_ID = r'[a-zA-Z][a-zA-Z0-9_]*'
-
-
+t_ignore_COMMENT = r'\/\/.*'
+t_ignore_MULTICOMEMNT = r'\/\*((?!\*\/)(.|\n))*\*\/'
+t_ignore  = r' \t'
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-
-t_ignore  = ' \t'
 
 def new_lexer():
     return lex.lex()
