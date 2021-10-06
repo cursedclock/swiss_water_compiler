@@ -1,0 +1,1 @@
+difference in line #1: file: out/t10-comment1.out -----> content: T_ID his <> file: tests/t10-comment1.out -----> content: this 
