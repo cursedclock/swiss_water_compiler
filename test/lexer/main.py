@@ -1,6 +1,6 @@
 import os, sys
 current_dir = os.getcwd()
-src_dir = os.path.dirname(os.path.dirname(current_dir)) + '/src'
+src_dir = os.path.dirname(os.path.dirname(current_dir))
 sys.path.append(src_dir)
 
 from src import new_lexer, pre_process
