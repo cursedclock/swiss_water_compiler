@@ -2,3 +2,5 @@ venv
 .venv
 .idea
 __pycache__
+test/lexer/out
+test/lexer/report
