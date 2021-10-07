@@ -2,7 +2,8 @@ import os, sys
 current_dir = os.getcwd()
 src_dir = os.path.dirname(os.path.dirname(current_dir)) + '/src'
 sys.path.append(src_dir)
-from lexer import new_lexer
+
+from src import new_lexer, pre_process
 
 import getopt
 def main(argv):
@@ -26,7 +27,7 @@ def main(argv):
     outp = ''
 
     with open("tests/" + inputfile, "r") as input_file:
-        lexer.input(input_file.read())
+        lexer.input(pre_process(input_file.read()))
     
     while True:
         tok = lexer.token()
