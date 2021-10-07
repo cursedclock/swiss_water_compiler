@@ -1,0 +1,49 @@
+{
+-
+T_INTLITERAL 123
+-
+T_ID a35
+,
+T_ID id3a
+,
++
+*
+;
+}
+[
+||
+==
+=
+!
+=
+(
+)
+&&
+]
+<
+>
+<
+=
+>
+==
+T_ID a
+[
+T_INTLITERAL 24
+]
+=
+T_STRINGLITERAL "7"
+;
+T_ID n
+!
+=
+if
+;
+T_ID false
+,
+-
+if
+;
+T_ID rue32
+;
+for
+T_ID par

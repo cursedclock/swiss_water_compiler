@@ -1,0 +1,2 @@
+difference in line #4: file: out/t09-literal1.out -----> content: T_ID rue <> file: tests/t09-literal1.out -----> content: T_BOOLEANLITERAL true 
+difference in line #5: file: out/t09-literal1.out -----> content: T_ID false <> file: tests/t09-literal1.out -----> content: T_BOOLEANLITERAL false 

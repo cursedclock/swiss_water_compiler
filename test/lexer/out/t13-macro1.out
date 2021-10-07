@@ -1,0 +1,26 @@
+define
+T_ID SEMICOLON
+;
+define
+T_ID FOR100
+for
+(
+T_ID i
+=
+T_INTLITERAL 0
+;
+T_ID i
+<
+T_INTLITERAL 100
+;
+T_ID i
++
+=
+T_INTLITERAL 1
+)
+T_ID FOR100
+Print
+(
+T_ID i
+)
+T_ID SEMICOLON
