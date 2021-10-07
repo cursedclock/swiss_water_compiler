@@ -7,7 +7,7 @@ def pre_process(text: str) -> str:
     lines = text.splitlines()
     processed_text = ''
     for line in lines:
-        if re.match(r'DEFINE \S+ .*', line):
+        if re.match(r'define \S+ .*', line):
             line = line.split(' ', 2)
             definitions[line[1]] = line[2]
         else:
