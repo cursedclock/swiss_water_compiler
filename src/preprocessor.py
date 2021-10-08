@@ -1,6 +1,7 @@
 import re
 from collections import OrderedDict
 
+_id_pattern = r'(^|\s|[^a-zA-Z0-9])({})(\s|$|[^a-zA-z0-9])'
 
 def pre_process(text: str) -> str:
     definitions = OrderedDict()
@@ -14,6 +15,9 @@ def pre_process(text: str) -> str:
             processed_text += line+'\n'
 
     for definition in definitions:
-        processed_text = processed_text.replace(definition, definitions[definition])
+        for i in range(2):
+            processed_text = re.sub(_id_pattern.format(definition),
+                                    rf'\1{definitions[definition]}\3',
+                                    processed_text)
 
     return processed_text
