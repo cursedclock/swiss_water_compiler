@@ -44,15 +44,21 @@ reserved = [
 
 boolean_literals = ['true', 'false']
 
-t_OP = r'(<=)|(>=)|(==?)|(\*=)|(\+=)|(-=)|(\/=)|(!=)|(&&)|(\|\|)|([+\-*%<>!;.,()\[\]{}])'
 t_RESERVED = r'(__func__)|(__line__)'
 t_STRINGLITERAL = r'"([^"\\]|\\.)*"'
-t_DOUBLELITERAL = r'[0-9]+\.[0-9]*((e|E)\+[0-9]+)?'
+t_DOUBLELITERAL = r'[0-9]+\.[0-9]*((e|E)(\+|\-)?[0-9]+)?'
 t_INTLITERAL = r'(0(x|X)[0-9a-fA-F]+)|([0-9]+)'
-t_ignore_COMMENT = r'\/\/.*'
-t_ignore_MULTICOMEMNT = r'\/\*((?!\*\/)(.|\n))*\*\/'
 t_ignore = ' \t'
 
+def t_COMMENT(t):
+    r'\/\/.*'
+
+def t_MULTICOMEMNT(t):
+    r'\/\*((?!\*\/)(.|\n))*\*\/'
+
+def t_OP(t):
+    r'(<=)|(>=)|(==?)|(\*=)|(\+=)|(-=)|(\/=)|(!=)|(&&)|(>=)|(<=)|(\|\|)|([+\-*\/%<>!;.,()\[\]{}])'
+    return t
 
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9_]*'
