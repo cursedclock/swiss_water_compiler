@@ -4,7 +4,7 @@ src_dir = os.path.dirname(os.path.dirname(current_dir))
 sys.path.append(src_dir)
 
 from src import new_lexer, pre_process
-from src.lexer import reserved, double_op_tokens
+from src.lexer import reserved, double_op_tokens, lexer
 
 import getopt
 def main(argv):
@@ -24,7 +24,6 @@ def main(argv):
         elif opt in ("-o", "--ofile"):
             outputfile = arg
 
-    lexer = new_lexer()
     outp = ''
 
     with open("tests/" + inputfile, "r") as input_file:

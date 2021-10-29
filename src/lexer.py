@@ -174,3 +174,5 @@ def t_newline(t):
 
 def new_lexer():
     return lex.lex()
+
+lexer = lex.lex()
