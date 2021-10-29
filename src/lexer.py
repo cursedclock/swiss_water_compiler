@@ -71,6 +71,7 @@ literals = [
     '}',
 ]
 
+# used for testing
 double_op_tokens = [
     'EQ',
     'LEQ',
@@ -84,6 +85,7 @@ double_op_tokens = [
     'OR',
 ]
 
+# used to differentiate keyword from ID
 reserved = [
     'bool',
     'break',
@@ -115,6 +117,7 @@ reserved = [
     'while'
 ]
 
+# used to differentiate keyword from ID
 boolean_literals = ['true', 'false']
 
 t_RESERVED = r'(__func__)|(__line__)'
