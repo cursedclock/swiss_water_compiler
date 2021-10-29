@@ -1,2 +1,2 @@
-import "hello" import "hello"
+import "hello" import "hi"
 import "really"
