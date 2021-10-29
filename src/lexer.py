@@ -2,6 +2,24 @@ from ply import lex
 
 # tuple of tokens
 tokens = (
+    'ASSIGN',
+    'PLUS',
+    'MINUS',
+    'TIMES',
+    'DIVIDE',
+    'PERCENT',
+    'LESS',
+    'GREATER',
+    'SEMICOLON',
+    'EXCL',
+    'DOT',
+    'COMMA',
+    'OPARAN',
+    'CPARAN',
+    'OBRACKET',
+    'CBRACKET',
+    'OBRACE',
+    'CBRACE',
     'EQ',
     'LEQ',
     'GEQ',
@@ -40,8 +58,9 @@ tokens = (
     'THIS',
     'VOID',
     'WHILE',
+    '__FUNC__',
+    '__LINE__',
     'OP',
-    'RESERVED',
     'BOOLEANLITERAL',
     'STRINGLITERAL',
     'DOUBLELITERAL',
@@ -49,44 +68,41 @@ tokens = (
     'ID'
 )
 
-# used in parser
-literals = [
-    '=',
-    '+',
-    '-',
-    '*',
-    '/',
-    '%',
-    '<',
-    '>',
-    '!',
-    ';',
-    '.',
-    ',',
-    '(',
-    ')',
-    '[',
-    ']',
-    '{',
-    '}',
-]
-
-# used for testing
-double_op_tokens = [
-    'EQ',
-    'LEQ',
-    'GEQ',
-    'NEQ',
-    'PEQ',
-    'MEQ',
-    'TEQ',
-    'DEQ',
-    'AND',
-    'OR',
-]
+op_tokens = { 
+    '=': 'ASSIGN',
+    '+': 'PLUS',
+    '-': 'MINUS',
+    '*': 'TIMES',
+    '/': 'DIVIDE',
+    '%': 'PERCENT',
+    '<': 'LESS',
+    '>': 'GREATER',
+    '!': 'SEMICOLON',
+    ';': 'EXCL',
+    '.': 'DOT',
+    ',': 'COMMA',
+    '(': 'OPARAN',
+    ')': 'CPARAN',
+    '[': 'OBRACKET',
+    ']': 'CBRACKET',
+    '{': 'OBRACE',
+    '}': 'CBRACE',
+    '==': 'EQ',
+    '<=': 'LEQ',
+    '>=': 'GEQ',
+    '!=': 'NEQ',
+    '+=': 'PEQ',
+    '-=': 'MEQ',
+    '*=': 'TEQ',
+    '/=': 'DEQ',
+    '&&': 'AND',
+    '||': 'OR',
+}
 
 # used to differentiate keyword from ID
 reserved = [
+    '__line__',
+    '__func__',
     'bool',
     'break',
     'btoi',
@@ -120,7 +136,6 @@ reserved = [
 # used to differentiate keyword from ID
 boolean_literals = ['true', 'false']
 
-t_RESERVED = r'(__func__)|(__line__)'
 t_STRINGLITERAL = r'"([^"\\]|\\.)*"'
 t_DOUBLELITERAL = r'[0-9]+\.[0-9]*((e|E)(\+|\-)?[0-9]+)?'
 t_INTLITERAL = r'(0(x|X)[0-9a-fA-F]+)|([0-9]+)'
@@ -134,30 +149,12 @@ def t_MULTICOMEMNT(t):
 
 def t_OP(t):
     r'(<=)|(>=)|(==?)|(\*=)|(\+=)|(-=)|(\/=)|(!=)|(&&)|(\|\|)|([+\-*\/%<>!;.,()\[\]{}])'
-    if t.value == '==':
-        t.type = 'EQ'
-    elif t.value == '>=':
-        t.type = 'GEQ'
-    elif t.value == '<=':
-        t.type = 'LEQ'
-    elif t.value == '+=':
-        t.type = 'PEQ'
-    elif t.value == '-=':
-        t.type = 'MEQ'
-    elif t.value == '*=':
-        t.type = 'TEQ'
-    elif t.value == '/=':
-        t.type = 'DEQ'
-    elif t.value == '!=':
-        t.type = 'NEQ'
-    elif t.value == '||':
-        t.type = 'OR'
-    elif t.value == '&&':
-        t.type = 'AND'
+    if t.value in op_tokens:
+        t.type = op_tokens[t.value]
     return t
 
 def t_ID(t):
-    r'[a-zA-Z][a-zA-Z0-9_]*'
+    r'([a-zA-Z][a-zA-Z0-9_]*)|(__func__)|(__line__)'
     if t.value in reserved:
         t.type = t.value.upper()
     elif t.value in boolean_literals:
