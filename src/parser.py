@@ -8,12 +8,12 @@ def p_Start(p):
 
 def p_Macro(p):
     '''Macro : macro
-            | empty'''
+             | empty'''
     p[0] = p[1]
 
 def p_macro(p):
     '''macro : macro macroStmt
-           | macroStmt'''
+             | macroStmt'''
     p[0] = p[1]
 
 def p_macroStmt(p):
