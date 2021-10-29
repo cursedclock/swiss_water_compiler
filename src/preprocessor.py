@@ -1,7 +1,7 @@
 import re
 from collections import OrderedDict
 
-_id_pattern = r'(?<![a-zA-Z0-9_]){}(?![a-zA-z0-9_])'
+_id_pattern = r'(?<![a-zA-Z0-9_]){}(?![a-zA-Z0-9_])'
 
 def pre_process(text: str) -> str:
     definitions = OrderedDict()
