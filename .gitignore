@@ -4,3 +4,5 @@ venv
 __pycache__
 test/lexer/out
 test/lexer/report
+src/parser.out
+src/parsetab.py
