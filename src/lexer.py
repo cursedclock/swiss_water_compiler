@@ -2,6 +2,44 @@ from ply import lex
 
 # tuple of tokens
 tokens = (
+    'EQ',
+    'LEQ',
+    'GEQ',
+    'NEQ',
+    'PEQ',
+    'MEQ',
+    'TEQ',
+    'DEQ',
+    'AND',
+    'OR',
+    'BOOL',
+    'BREAK',
+    'BTOI',
+    'CLASS',
+    'CONTINUE',
+    'DEFINE',
+    'DOUBLE',
+    'DTOI',
+    'ELSE',
+    'FOR',
+    'IF',
+    'IMPORT',
+    'INT',
+    'ITOB',
+    'ITOD',
+    'NEW',
+    'NEWARRAY',
+    'NULL',
+    'PRINT',
+    'PRIVATE',
+    'PUBLIC',
+    'READINTEGER',
+    'READLINE',
+    'RETURN',
+    'STRING',
+    'THIS',
+    'VOID',
+    'WHILE',
     'OP',
     'RESERVED',
     'BOOLEANLITERAL',
@@ -10,6 +48,41 @@ tokens = (
     'INTLITERAL',
     'ID'
 )
+
+# used in parser
+literals = [
+    '=',
+    '+',
+    '-',
+    '*',
+    '/',
+    '%',
+    '<',
+    '>',
+    '!',
+    ';',
+    '.',
+    ',',
+    '(',
+    ')',
+    '[',
+    ']',
+    '{',
+    '}',
+]
+
+double_op_tokens = [
+    'EQ',
+    'LEQ',
+    'GEQ',
+    'NEQ',
+    'PEQ',
+    'MEQ',
+    'TEQ',
+    'DEQ',
+    'AND',
+    'OR',
+]
 
 reserved = [
     'bool',
@@ -57,13 +130,33 @@ def t_MULTICOMEMNT(t):
     r'\/\*((?!\*\/)(.|\n))*\*\/'
 
 def t_OP(t):
-    r'(<=)|(>=)|(==?)|(\*=)|(\+=)|(-=)|(\/=)|(!=)|(&&)|(>=)|(<=)|(\|\|)|([+\-*\/%<>!;.,()\[\]{}])'
+    r'(<=)|(>=)|(==?)|(\*=)|(\+=)|(-=)|(\/=)|(!=)|(&&)|(\|\|)|([+\-*\/%<>!;.,()\[\]{}])'
+    if t.value == '==':
+        t.type = 'EQ'
+    elif t.value == '>=':
+        t.type = 'GEQ'
+    elif t.value == '<=':
+        t.type = 'LEQ'
+    elif t.value == '+=':
+        t.type = 'PEQ'
+    elif t.value == '-=':
+        t.type = 'MEQ'
+    elif t.value == '*=':
+        t.type = 'TEQ'
+    elif t.value == '/=':
+        t.type = 'DEQ'
+    elif t.value == '!=':
+        t.type = 'NEQ'
+    elif t.value == '||':
+        t.type = 'OR'
+    elif t.value == '&&':
+        t.type = 'AND'
     return t
 
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9_]*'
     if t.value in reserved:
-        t.type = 'RESERVED'
+        t.type = t.value.upper()
     elif t.value in boolean_literals:
         t.type = 'BOOLEANLITERAL'
     return t

@@ -4,6 +4,7 @@ src_dir = os.path.dirname(os.path.dirname(current_dir))
 sys.path.append(src_dir)
 
 from src import new_lexer, pre_process
+from src.lexer import reserved, double_op_tokens
 
 import getopt
 def main(argv):
@@ -33,7 +34,7 @@ def main(argv):
         tok = lexer.token()
         if not tok:
             break
-        if tok.type in ['RESERVED','OP']:
+        if tok.type in ['RESERVED','OP'] or tok.value in reserved or tok.type in double_op_tokens:
             outp += tok.value+'\n'
         else:
             outp += f'T_{tok.type} {tok.value}\n'
