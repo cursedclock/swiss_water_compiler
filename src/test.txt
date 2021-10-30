@@ -1,2 +1,6 @@
 import "hello" import "hi"
 import "really"
+
+define hello really
+
+int hello;
