@@ -4,3 +4,5 @@ import "really"
 define hello really
 
 int hello;
+
+double[] smth;

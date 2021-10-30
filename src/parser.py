@@ -38,7 +38,9 @@ def p_Decl(p):
     p[0] = p[1]
 
 def p_declStmt(p):
-    '''declStmt : VariableDecl'''
+    '''declStmt : VariableDecl
+                | FunctionDecl
+                | ClassDecl'''
     p[0] = p[1]
 
 
@@ -62,6 +64,25 @@ def p_Type(p):
             | STRING
             | ID
             | Type OBRACKET CBRACKET'''
+    p[0] = p[1]
+
+
+# FunctionDecl
+def p_FunctionDecl(p):
+    '''FunctionDecl : Type ID OPAREN Formals CPAREN StmtBlock
+                    | VOID ID OPAREN Formals CPAREN StmtBlock'''
+    p[0] = p[1]
+
+
+# Formals
+def p_Formals(p):
+    '''Formals : varFormals
+               | empty'''
+    p[0] = p[1]
+
+def p_varFormals(p):
+    '''varFormals : varFormals COMMA Variable
+                  | Variable'''
     p[0] = p[1]
 
 
