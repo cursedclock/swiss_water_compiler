@@ -9,7 +9,7 @@ def p_Program(p):
         p[0] = 'done'
 
 
-# Macro
+# Macro*
 def p_Macro(p):
     '''Macro : macro
              | empty'''
@@ -31,10 +31,10 @@ def p_defineStmt(p):
     p[0] = p[1]
 
 
-# Decl
+# Decl+
 def p_Decl(p):
     '''Decl : Decl declStmt
-           | declStmt'''
+            | declStmt'''
     p[0] = p[1]
 
 def p_declStmt(p):
@@ -84,6 +84,67 @@ def p_varFormals(p):
     '''varFormals : varFormals COMMA Variable
                   | Variable'''
     p[0] = p[1]
+
+
+# ClassDecl
+def p_ClassDecl(p):
+    '''ClassDecl : CLASS ID OBRACE Field CBRACE'''
+    p[0] = p[1]
+
+
+# Field
+def p_Field(p):
+    '''Field : field
+             | empty'''
+    p[0] = p[1]
+
+def p_field(p):
+    '''field : field fieldStmt
+             | fieldStmt'''
+    p[0] = p[1]
+
+def p_fieldStmt(p):
+    '''fieldStmt : AccessMode VariableDecl
+                 | AccessMode FunctionDecl'''
+    p[0] = p[1]
+
+
+# AccessMode
+def p_AccessMode(p):
+    '''AccessMode : PRIVATE
+                  | PUBLIC
+                  | empty'''
+    p[0] = p[1]
+
+
+# StmtBlock
+def p_StmtBlock(p):
+    '''StmtBlock : OBRACE VariableDeclStmtBlock StmtStmtBlock CBRACE'''
+    p[0] = p[1]
+
+def p_VariableDeclStmtBlock(p):
+    '''VariableDeclStmtBlock : varDclBlock
+                             | empty'''
+    p[0] = p[1]
+
+def p_varDclBlock(p):
+    '''varDclBlock : varDclBlock VariableDecl
+                   | VariableDecl'''
+    p[0] = p[1]
+
+def p_StmtStmtBlock(p):
+    '''StmtStmtBlock : stStBlock
+                     | empty'''
+    p[0] = p[1]
+
+def p_stStBlock(p):
+    '''stStBlock : stStBlock Stmt
+                 | Stmt'''
+    p[0] = p[1]
+
+
+# Stmt
+
 
 
 # related to ply
