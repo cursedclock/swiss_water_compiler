@@ -119,11 +119,11 @@ def p_AccessMode(p):
 
 # StmtBlock
 def p_StmtBlock(p):
-    '''StmtBlock : OBRACE VariableDeclStmtBlock StmtStmtBlock CBRACE'''
+    '''StmtBlock : OBRACE variableDeclStmtBlock stmtStmtBlock CBRACE'''
     p[0] = p[1]
 
-def p_VariableDeclStmtBlock(p):
-    '''VariableDeclStmtBlock : varDclBlock
+def p_variableDeclStmtBlock(p):
+    '''variableDeclStmtBlock : varDclBlock
                              | empty'''
     p[0] = p[1]
 
@@ -132,8 +132,8 @@ def p_varDclBlock(p):
                    | VariableDecl'''
     p[0] = p[1]
 
-def p_StmtStmtBlock(p):
-    '''StmtStmtBlock : stStBlock
+def p_stmtStmtBlock(p):
+    '''stmtStmtBlock : stStBlock
                      | empty'''
     p[0] = p[1]
 
@@ -144,7 +144,71 @@ def p_stStBlock(p):
 
 
 # Stmt
+def p_Stmt(p):
+    '''Stmt : optionalExpr SEMICOLON
+            | IfStmt
+            | WhileStmt
+            | ForStmt
+            | BreakStmt
+            | ContinueStmt
+            | ReturnStmt
+            | PrintStmt
+            | StmtBlock'''
+    p[0] =p[1]
 
+
+# IfStmt
+def p_IfStmt(p):
+    ''''IfStmt : IF OPAREN Expr CPAREN Stmt elseStmt?'''
+    p[0] = p[1]
+
+
+# WhileStmt
+def p_WhileStmt(p):
+    '''WhileStmt : WHILE OPAREN Expr CPAREN Stmt'''
+    p[0] = p[1]
+
+
+# ForStmt
+def p_ForStmt(p):
+    '''ForStmt : FOR OPAREN optionalExpr SEMICOLON Expr SEMICOLON optionalExpr CPAREN Stmt'''
+    p[0] = p[1]
+
+
+# ReturnStmt
+def p_ReturnStmt(p):
+    '''ReturnStmt : RETURN optionalExpr SEMICOLON'''
+    p[0] = p[1]
+
+
+# BreakStmt
+def p_BreakStmt(p):
+    '''BreakStmt : BREAK SEMICOLON'''
+    p[0] = p[1]
+
+
+# ContinueStmt
+def p_ContinueStmt(p):
+    '''ContinueStmt : CONTINUE SEMICOLON'''
+    p[0] = p[1]
+
+
+# PrintStmt
+def p_PrintStmt(p):
+    '''PrintStmt : PRINT OPAREN exprArg CPAREN SEMICOLON'''
+    p[0] = p[1]
+
+def p_exprArg(p):
+    '''exprArg : exprArg COMMA Expr
+               | Expr'''
+    p[0] = p[1]
+
+
+# Expr?
+def p_optionalExpr(p):
+    '''optionalExpr : Expr
+                    | empty'''
+    p[0] = p[1]
 
 
 # related to ply
