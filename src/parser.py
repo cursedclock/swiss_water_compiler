@@ -159,7 +159,7 @@ def p_Stmt(p):
 
 # IfStmt
 def p_IfStmt(p):
-    ''''IfStmt : IF OPAREN Expr CPAREN Stmt optionalElseStmt'''
+    '''IfStmt : IF OPAREN Expr CPAREN Stmt optionalElseStmt'''
     p[0] = p[1]
 
 def p_optionalElseStmt(p):
