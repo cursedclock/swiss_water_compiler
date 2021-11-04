@@ -163,7 +163,8 @@ def p_IfStmt(p):
     p[0] = p[1]
 
 def p_optionalElseStmt(p):
-    '''optionalElseStmt : ELSE Stmt'''
+    '''optionalElseStmt : ELSE Stmt
+                        | empty'''
     p[0] = p[1]
 
 
