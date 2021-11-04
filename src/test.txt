@@ -6,3 +6,31 @@ define hello really
 int hello;
 
 double[] smth;
+
+class FirstClass {
+    private string global;
+
+    public int main(bool hello, Smth really) {
+        int yay;
+        return this;
+    }
+
+    private double[] test(double yep) {
+        if (this)
+            return this;
+
+        while (this)
+            if (this)
+                break;
+            else
+                continue;
+
+        for (this; this; this)
+            Print(this, this);
+            Print(this);
+
+        return;
+    }
+}
+
+class Empty {}
