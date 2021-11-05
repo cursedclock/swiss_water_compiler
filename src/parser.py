@@ -33,13 +33,7 @@ def p_macro(p):
     p[0] = p[1]
 
 def p_macroStmt(p):
-    '''macroStmt : IMPORT STRINGLITERAL
-                 | DEFINE ID defineStmt'''
-    p[0] = p[1]
-
-# how to implement * ?
-def p_defineStmt(p):
-    '''defineStmt : ID'''
+    '''macroStmt : IMPORT STRINGLITERAL'''
     p[0] = p[1]
 
 
