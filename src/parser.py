@@ -1,6 +1,18 @@
 import ply.yacc as yacc
 from lexer import tokens
 
+precedence = (
+    ('right', 'ASSIGN', 'PEQ', 'MEQ', 'TEQ', 'DEQ'),  # assignments
+    ('left', 'OR'),  # logical
+    ('left', 'AND'),  # logical
+    ('nonassoc', 'EQ', 'NEQ'),  # comparison
+    ('nonassoc', 'GREATER', 'LESS', 'LEQ', 'GEQ'),  # comparison
+    ('left', 'PLUS', 'MINUS'),  # add minus
+    ('left', 'TIMES', 'DIVIDE', 'PERCENT'),  # division mult
+    ('right', 'UMINUS', 'EXCL'),  # unary
+    ('left', 'DOT', 'OBRACKET'),
+)
+
 
 # Program
 def p_Program(p):
@@ -216,9 +228,94 @@ def p_optionalExpr(p):
     p[0] = p[1]
 
 
+# Expr
+def p_Expr(p):
+    '''Expr : LValue assignment Expr
+            | Constant
+            | LValue
+            | THIS
+            | Call
+            | OPAREN Expr CPAREN
+            | Expr binOp Expr
+            | MINUS Expr %prec UMINUS
+            | EXCL Expr
+            | READINTEGER OPAREN CPAREN
+            | READLINE OPAREN CPAREN
+            | NEW ID
+            | NEWARRAY OPAREN Expr COMMA Type CPAREN
+            | ITOD OPAREN Expr CPAREN
+            | DTOI OPAREN Expr CPAREN
+            | ITOB OPAREN Expr CPAREN
+            | BTOI OPAREN Expr CPAREN
+            | __LINE__
+            | __FUNC__'''
+    p[0] = p[1]
+
+def p_assignment(p):
+    '''assignment : ASSIGN
+                  | PEQ
+                  | MEQ
+                  | TEQ
+                  | DEQ'''
+    p[0] = p[1]
+
+def p_binOp(p):
+    '''binOp : PLUS
+             | MINUS
+             | TIMES
+             | DIVIDE
+             | PERCENT
+             | LESS
+             | GREATER
+             | EQ
+             | LEQ
+             | GEQ
+             | NEQ
+             | AND
+             | OR'''
+    p[0] = p[1]
+
+
+# LValue
+def p_LValue(p):
+    '''LValue : ID
+              | Expr DOT ID
+              | Expr OBRACKET Expr CBRACKET'''
+    p[0] = p[1]
+
+
+# Call
+def p_Call(p):
+    '''Call : ID OPAREN Actuals CPAREN
+            | Expr DOT ID OPAREN Actuals CPAREN'''
+    p[0] = p[1]
+
+
+# Actuals
+def p_Actuals(p):
+    '''Actuals : exprActuals
+               | empty'''
+    p[0] = p[1]
+
+def p_exprActuals(p):
+    '''exprActuals : exprActuals COMMA Expr
+                   | Expr'''
+    p[0] = p[1]
+
+
+# Constant
+def p_Constant(p):
+    '''Constant : INTLITERAL
+                | DOUBLELITERAL
+                | BOOLEANLITERAL
+                | STRINGLITERAL
+                | NULL'''
+    p[0] = p[1]
+
+
 # related to ply
 def p_empty(p):
-    'empty :'
+    '''empty : '''
     pass
 
 # def p_error(p):

@@ -13,6 +13,10 @@ class FirstClass {
     public int main(bool hello, Smth really) {
         int yay;
         return this;
+        yay = 2;
+        yay *= yay - 2 - (-3.4 * yay);
+        yay = yay - (-3.24 * yay);
+        object.method(3, 5, -2, 0x74a2, yay);
     }
 
     private double[] test(double yep) {
