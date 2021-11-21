@@ -17,8 +17,7 @@ precedence = (
 # Program
 def p_Program(p):
     '''Program : Macro Decl'''
-    if p[2] != None:
-        p[0] = 'done'
+    p[0] = True
 
 
 # Macro*
@@ -125,8 +124,12 @@ def p_AccessMode(p):
 
 # StmtBlock
 def p_StmtBlock(p):
-    '''StmtBlock : OBRACE variableDeclStmtBlock stmtStmtBlock CBRACE'''
+    '''StmtBlock : OBRACE block CBRACE'''
     p[0] = p[1]
+
+def p_block(p):
+    '''block : varDclBlock stmtStmtBlock
+             | stmtStmtBlock'''
 
 def p_variableDeclStmtBlock(p):
     '''variableDeclStmtBlock : varDclBlock
@@ -312,11 +315,6 @@ def p_empty(p):
     '''empty : '''
     pass
 
-# def p_error(p):
-#     pass
 
-parser = yacc.yacc()
-
-with open("test.txt", "r") as file:
-   result = parser.parse(file.read())
-   print(result)
+def new_parser():
+    return yacc.yacc()
