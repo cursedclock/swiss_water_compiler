@@ -316,5 +316,10 @@ def p_empty(p):
     pass
 
 
+# error handling
+def p_error(p):
+    pass
+
+
 def new_parser():
     return yacc.yacc()
