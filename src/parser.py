@@ -68,7 +68,15 @@ def p_Type(p):
             | BOOL
             | STRING
             | ID
-            | Type OBRACKET CBRACKET'''
+            | INT OBRACKET CBRACKET
+            | DOUBLE OBRACKET CBRACKET
+            | BOOL OBRACKET CBRACKET
+            | STRING OBRACKET CBRACKET
+            | IdBrack CBRACKET'''
+    p[0] = p[1]
+
+def p_IdBrack(p):
+    '''IdBrack : ID OBRACKET'''
     p[0] = p[1]
 
 
@@ -277,6 +285,7 @@ def p_binOp(p):
 def p_LValue(p):
     '''LValue : ID
               | Expr DOT ID
+              | IdBrack Expr CBRACKET
               | Expr OBRACKET Expr CBRACKET'''
     p[0] = p[1]
 
