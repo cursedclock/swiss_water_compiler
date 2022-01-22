@@ -166,7 +166,13 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
+
+
+lexer = lex.lex()
+
+def get_lexer():
+    return lexer
+
 def new_lexer():
     return lex.lex()
 
-lexer = lex.lex()

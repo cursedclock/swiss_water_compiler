@@ -1,6 +1,6 @@
 import "hello" import "hi"
 import "really"
-
+/*
 int hello;
 
 double[] smth;
@@ -35,4 +35,10 @@ class FirstClass {
     }
 }
 
-class Empty {}
+class Empty {} */
+
+int main(bool hello, Smth really) {
+    while (this)
+        2 + 2;
+}
+

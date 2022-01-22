@@ -17,7 +17,7 @@ precedence = (
 # Program
 def p_Program(p):
     '''Program : Macro Decl'''
-    p[0] = True
+    p[0] = p[2]
 
 
 # Macro*
@@ -138,11 +138,6 @@ def p_StmtBlock(p):
 def p_block(p):
     '''block : varDclBlock stmtStmtBlock
              | stmtStmtBlock'''
-
-def p_variableDeclStmtBlock(p):
-    '''variableDeclStmtBlock : varDclBlock
-                             | empty'''
-    p[0] = p[1]
 
 def p_varDclBlock(p):
     '''varDclBlock : varDclBlock VariableDecl
@@ -327,8 +322,20 @@ def p_empty(p):
 
 # error handling
 def p_error(p):
-    pass
+    # also, we can have an error list, to check whether syntax analysis was successful or not
+    if p:
+         print(f'Syntax error at token {p.type} at line {p.lineno}')
+         # Just discard the token and tell the parser it's okay.
+         parser.errok()
+    else:
+         print("Syntax error at EOF")
 
+
+
+parser = yacc.yacc()
+
+def get_parser():
+    return parser
 
 def new_parser():
     return yacc.yacc()
