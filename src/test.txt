@@ -1,44 +1,10 @@
-import "hello" import "hi"
-import "really"
-/*
-int hello;
+int main() {
+    int a;
+    int b;
 
-double[] smth;
+    a = 1;
+    b = 2;
 
-class FirstClass {
-    private string global;
-
-    public int main(bool hello, Smth really) {
-        int yay;
-        return this;
-        yay = 2;
-        yay *= yay - 2 - (-3.4 * yay);
-        yay = yay - (-3.24 * yay);
-        object.method(3, 5, -2, 0x74a2, yay);
-    }
-
-    private double[] test(double yep) {
-        if (this)
-            return this;
-
-        while (this)
-            if (this)
-                break;
-            else
-                continue;
-
-        for (this; this; this)
-            Print(this, this);
-            Print(this);
-
-        return;
-    }
+    Print(a);
+    Print(b);
 }
-
-class Empty {} */
-
-int main(bool hello, Smth really) {
-    while (this)
-        2 + 2;
-}
-
