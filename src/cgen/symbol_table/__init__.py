@@ -1,3 +1,10 @@
+from enum import Enum
+
+
+class EntryType(Enum):
+    Variable = 0
+    Class = 1
+    Func = 2
 
 
 class SymbolTable:
@@ -6,17 +13,15 @@ class SymbolTable:
         self.context_stack: [dict[str: object]] = [{'__func__': ''}]
 
     def insert(self, key: str, item) -> None:
-        top = self.scope_stack[-1]
-        if top.get(key):
+        if self.id_defined_in_scope(key):
             raise RuntimeError  # id already defined
         else:
-            top[key] = item
+            current_scope = self.scope_stack[-1]
+            current_scope[key] = item
 
     def new_scope(self, ctx=None) -> None:
-        if ctx is None:
-            ctx = {'__func__': ''}
-        else:
-            self.context_stack.append(ctx.copy())
+        ctx = ctx.copy() if ctx is not None else {'__func__': ''}
+        self.context_stack.append(ctx)
         self.scope_stack.append({})
 
     def get(self, key: str) -> object:
@@ -26,9 +31,20 @@ class SymbolTable:
                 return lookup
         raise RuntimeError  # id not defined
 
+    def get_type(self, key):
+        entry = self.get(key)
+        entry_type = entry.get('type')
+        if entry_type and entry_type is EntryType.Class:
+            return entry
+        else:
+            raise RuntimeError  # identifier does not refer to type
+
     def get_from_ctx(self, key: str) -> object:
         lookups = (self.context_stack[i].get(key) for i in range(len(self.context_stack)-1, -1, -1))
         for lookup in lookups:
             if lookup is not None:
                 return lookup
         return None
+
+    def id_defined_in_scope(self, key: str) -> bool:
+        return self.scope_stack[-1].get(key) is not None
