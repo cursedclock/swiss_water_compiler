@@ -44,7 +44,9 @@ class PrintStatementNode(AbstractNode):
         self.ctx.text_segment += f'\tsyscall\n'
 
     def print_double(self):
-        raise NotImplementedError
+        self.ctx.text_segment += f'\tmov.d $f12, $f0\n'
+        self.ctx.text_segment += f'\tli $v0, 3\n'
+        self.ctx.text_segment += f'\tsyscall\n'
 
     def print_null(self):
         self.ctx.text_segment += f'\tla $a0, NULL\n'
