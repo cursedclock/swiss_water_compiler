@@ -42,7 +42,9 @@ class PrintStatementNode(AbstractNode):
         raise NotImplementedError
 
     def print_null(self):
-        raise NotImplementedError
+        self.ctx.text_segment += f'\tla $a0, NULL\n'
+        self.ctx.text_segment += f'\tli $v0, 4\n'
+        self.ctx.text_segment += f'\tsyscall\n'
 
     def print_obj(self):
         raise NotImplementedError

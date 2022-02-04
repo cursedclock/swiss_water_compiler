@@ -5,7 +5,10 @@ class NodeContext:
     def __init__(self):
         self.symbol_table = SymbolTable()
         self.text_segment = '.text\n'
-        self.data_segment = '.data\n'
+        self.data_segment = '.data\n' \
+                            'TRUE:\t.asciiz\t"true"\n' \
+                            'FALSE:\t.asciiz\t"false"\n' \
+                            'NULL:\t.asciiz\t"null"\n'
         self.label_generator = LabelGenerator()
 
 

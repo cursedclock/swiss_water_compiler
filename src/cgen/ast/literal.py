@@ -59,7 +59,7 @@ class BoolLiteralNode(BaseLiteralNode):
 
 class NullLiteralNode(BaseLiteralNode):
     def generate_code(self):
-        self.ctx.text_segment += f'\tmov $v0, $zero\n'
+        self.ctx.text_segment += f'\tmove $v0, $zero\n'
 
 
 class DoubleLiteralNode(BaseLiteralNode):
