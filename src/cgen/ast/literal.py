@@ -42,7 +42,7 @@ class BaseLiteralNode(AbstractNode, ValuedNodeMixin):
 class StringLiteralNode(BaseLiteralNode):
     def generate_code(self):
         label = self.ctx.label_generator.get_label()
-        self.ctx.data_segment += f'{label}:\t.asciiz\t"{self._literal_value}"\n'
+        self.ctx.data_segment += f'{label}:\t.asciiz\t{self._literal_value}\n'
         self.ctx.text_segment += f'\tla $v0, {label}\n'
 
 
@@ -59,12 +59,11 @@ class BoolLiteralNode(BaseLiteralNode):
 
 class NullLiteralNode(BaseLiteralNode):
     def generate_code(self):
-        self.ctx.text_segment += f'\tmov $v0, $zero\n'
+        self.ctx.text_segment += f'\tmove $v0, $zero\n'
 
 
 class DoubleLiteralNode(BaseLiteralNode):
     def generate_code(self):
         label = self.ctx.label_generator.get_label()
-        self.ctx.data_segment += f'{label}:\t.double\t"{self._literal_value}"\n'
-        self.ctx.text_segment += f'\tla $v0, {label}\n'
-        self.ctx.text_segment += f'\tla $v1, {label}+4\n'
+        self.ctx.data_segment += f'{label}:\t.double\t{self._literal_value}\n'
+        self.ctx.text_segment += f'\tl.d $f0, {label}\n'
