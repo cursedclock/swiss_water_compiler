@@ -65,6 +65,7 @@ def p_VariableDecl(p):
 def p_Variable(p):
     '''Variable : Type ID'''
     p[0] = p[1]
+    # add here
 
 
 # Type

@@ -18,6 +18,11 @@ class PrimitiveTypes(enum.Enum):
     DOUBLELITERAL = 3
     STRINGLITERAL = 4
 
+    BOOLEAN = 1
+    INT = 2
+    DOUBLE = 3
+    STRING = 4
+
 
 class BaseLiteralNode(AbstractNode, ValuedNodeMixin):
     def __init__(self, ctx: NodeContext, value_type: str, value: str):

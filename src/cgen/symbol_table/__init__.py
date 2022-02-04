@@ -33,7 +33,7 @@ class SymbolTable:
 
     def get_type(self, key):
         entry = self.get(key)
-        entry_type = entry.get('type')
+        entry_type = entry.get(TYPE)
         if entry_type and entry_type is EntryType.Class:
             return entry
         else:
@@ -48,3 +48,8 @@ class SymbolTable:
 
     def id_defined_in_scope(self, key: str) -> bool:
         return self.scope_stack[-1].get(key) is not None
+
+
+# scope is in the form of Id: entry, which entry is a dict contains some info
+# keys of this info
+TYPE = 'type'
