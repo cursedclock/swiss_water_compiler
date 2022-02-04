@@ -29,6 +29,6 @@ class ValuedNodeMixin:
 
     def generate_code(self):
         """
-        adds logic of getting the value of the node and storing it in $v0 to text and code segments
+        adds logic of getting the value of the node and storing it in $v0 ($f0-$f1 if double) to text and code segments
         """
         raise NotImplementedError
