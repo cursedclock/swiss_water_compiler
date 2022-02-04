@@ -31,7 +31,12 @@ class PrintStatementNode(AbstractNode):
         self.ctx.text_segment += f'\tsyscall\n'
 
     def print_bool(self):
-        raise NotImplementedError
+        label = self.ctx.label_generator.get_label()
+        self.ctx.text_segment += f'\tla $a0, FALSE\n'
+        self.ctx.text_segment += f'\tbeqz $v0, {label}\n'
+        self.ctx.text_segment += f'\tla $a0, TRUE\n'
+        self.ctx.text_segment += f'{label}:\tli $v0, 4\n'
+        self.ctx.text_segment += f'\tsyscall\n'
 
     def print_string(self):
         self.ctx.text_segment += f'\tmove $a0, $v0\n'
