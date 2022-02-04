@@ -2,7 +2,7 @@ import ply.yacc as yacc
 from lexer import tokens
 
 from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode,\
-                     PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode
+                     PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode, BlockNode
 from cgen.ast.utils import NodeContext
 from src.cgen.ast.assignment import AssignmentNode
 
@@ -24,7 +24,7 @@ precedence = (
 # Program
 def p_Program(p):
     '''Program : Macro Decl'''
-    p[0] = p[2]
+    p[0] = BlockNode(ctx, p[2])
 
 
 # Macro*
@@ -45,9 +45,13 @@ def p_macroStmt(p):
 
 # Decl+
 def p_Decl(p):
-    '''Decl : Decl declStmt
-            | declStmt'''
+    '''Decl : Decl declStmt'''
+    p[1].append(p[2])
     p[0] = p[1]
+
+def p_Decl_Base(p):
+    '''Decl : declStmt'''
+    p[0] = [p[1]]
 
 def p_declStmt(p):
     '''declStmt : VariableDecl
@@ -96,9 +100,17 @@ def p_IdBrack(p):
 
 # FunctionDecl
 def p_FunctionDecl(p):
-    '''FunctionDecl : Type ID OPAREN Formals CPAREN StmtBlock
-                    | VOID ID OPAREN Formals CPAREN StmtBlock'''
-    p[0] = p[6]
+    '''FunctionDecl : FunctionDeclInit StmtBlock'''
+    ctx.symbol_table.pop_scope()
+    p[0] = p[2]
+
+
+# FunctionDecl
+def p_FunctionDeclInit(p):
+    '''FunctionDeclInit : Type ID OPAREN Formals CPAREN
+                        | VOID ID OPAREN Formals CPAREN'''
+    ctx.symbol_table.new_scope({'__func__': p[2]})
+    p[0] = p[1]
 
 
 # Formals
@@ -149,25 +161,41 @@ def p_StmtBlock(p):
     '''StmtBlock : OBRACE block CBRACE'''
     p[0] = p[2]
 
+
 def p_block(p):
-    '''block : varDclBlock stmtStmtBlock
-             | stmtStmtBlock'''
-    p[0] = p[1]
+    """block : varDclBlock stmtStmtBlock
+             | stmtStmtBlock"""
+    if len(p) == 3:
+        p[0] = BlockNode(ctx, p[1] + p[2])
+    else:
+        p[0] = BlockNode(ctx, p[1])
+
 
 def p_varDclBlock(p):
-    '''varDclBlock : varDclBlock VariableDecl
-                   | VariableDecl'''
+    '''varDclBlock : varDclBlock VariableDecl'''
+    p[1].append(p[2])
     p[0] = p[1]
+
+def p_varDclBlock_Base(p):
+    '''varDclBlock : VariableDecl'''
+    p[0] = [p[1]]
 
 def p_stmtStmtBlock(p):
-    '''stmtStmtBlock : stStBlock
-                     | empty'''
+    '''stmtStmtBlock : stStBlock'''
     p[0] = p[1]
 
+def p_stmtStmtBlock_Base(p):
+    '''stmtStmtBlock :  empty'''
+    p[0] = []
+
 def p_stStBlock(p):
-    '''stStBlock : stStBlock Stmt
-                 | Stmt'''
+    '''stStBlock : stStBlock Stmt'''
+    p[1].append(p[2])
     p[0] = p[1]
+
+def p_stStBlock_Base(p):
+    '''stStBlock :  Stmt'''
+    p[0] = [p[1]]
 
 
 # Stmt

@@ -21,9 +21,12 @@ class SymbolTable:
             current_scope[key] = item
 
     def new_scope(self, ctx=None) -> None:
-        ctx = ctx.copy() if ctx is not None else {'__func__': ''}
+        ctx = ctx.copy() if ctx is not None else {'__func__': self.get_from_ctx('__func__')}
         self.context_stack.append(ctx)
         self.scope_stack.append(OrderedDict())
+
+    def pop_scope(self):
+        self.context_stack.pop()
 
     def get(self, key: str) -> object:
         lookups = (self.scope_stack[i].get(key) for i in range(len(self.scope_stack)-1, -1, -1))
@@ -52,7 +55,7 @@ class SymbolTable:
 
     def get_depth(self, key: str) -> int:
         depth = 0
-        for scope in reversed(self.scope_stack.values()):
+        for scope in reversed(self.scope_stack):
             for entry_key, entry in reversed(scope.items()):
                 depth += entry[SIZE]
                 if entry_key == key:
