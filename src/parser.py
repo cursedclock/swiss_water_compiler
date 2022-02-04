@@ -220,10 +220,16 @@ def p_PrintStmt(p):
     '''PrintStmt : PRINT OPAREN exprArg CPAREN SEMICOLON'''
     p[0] = p[1]
 
-def p_exprArg(p):
-    '''exprArg : exprArg COMMA Expr
-               | Expr'''
+
+def p_exprArg_Repeat(p):
+    """exprArg : exprArg COMMA Expr"""
+    p[1].append(p[3])
     p[0] = p[1]
+
+
+def p_exprArg_Base(p):
+    """exprArg : Expr"""
+    p[0] = [p[1]]
 
 
 # Expr?
