@@ -398,13 +398,14 @@ def p_empty(p):
 
 # error handling
 def p_error(p):
+    raise ParseError
     # also, we can have an error list, to check whether syntax analysis was successful or not
-    if p:
-         print(f'Syntax error at token {p.type} at line {p.lineno}')
-         # Just discard the token and tell the parser it's okay.
-         parser.errok()
-    else:
-         print("Syntax error at EOF")
+    # if p:
+    #      print(f'Syntax error at token {p.type} at line {p.lineno}')
+    #      # Just discard the token and tell the parser it's okay.
+    #      parser.errok()
+    # else:
+    #      print("Syntax error at EOF")
 
 
 
@@ -415,3 +416,7 @@ def get_parser():
 
 def new_parser():
     return yacc.yacc()
+
+
+class ParseError(RuntimeError):
+    pass

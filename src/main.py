@@ -28,7 +28,7 @@ def main(argv):
         
 
     with open("out/" + outputfile, "w") as output_file:
-        output_file.write(result.ctx.data_segment+'\n'+result.ctx.text_segment)
+        output_file.write(result.ctx.data_segment+'\n'+result.ctx.text_segment+'\n\tli $v0, 10\n\tsyscall\n')
 
 
 if __name__ == "__main__":
