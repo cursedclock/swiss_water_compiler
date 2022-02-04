@@ -64,3 +64,4 @@ class SymbolTable:
 TYPE = 'type'
 SIZE = 'size'
 ENTRY_TYPE = 'entry_type'
+VALUE = 'value'
