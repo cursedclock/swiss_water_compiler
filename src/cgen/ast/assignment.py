@@ -23,4 +23,6 @@ class AssignmentNode(AbstractNode):
         self.id_entry[VALUE] = self.children[1]._literal_value
 
     def generate_code(self):
-        return super().generate_code()
+        self.children[1].generate_code()
+        offset = self.symbol_table.get_depth(self.children[0])
+        self.ctx.text_segment += f'\tsw $v0, {offset}($sp)\n'

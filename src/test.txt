@@ -11,5 +11,6 @@ int main() {
 }
 */
 int main() {
-    Print("dsafs");
+    int a;
+    a = 1;
 }

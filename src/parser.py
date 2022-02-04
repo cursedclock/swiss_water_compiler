@@ -4,6 +4,7 @@ from lexer import tokens
 from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode,\
                      PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode
 from cgen.ast.utils import NodeContext
+from src.cgen.ast.assignment import AssignmentNode
 
 ctx = NodeContext()
 
@@ -297,7 +298,7 @@ def p_Expr_Null(p):
 
 def p_Expr_Assignment(p):
     '''Expr : LValue assignment Expr'''
-    p[0] = p[1]
+    p[0] = AssignmentNode(ctx, [p[1], p[3]])
 
 
 def p_assignment(p):
