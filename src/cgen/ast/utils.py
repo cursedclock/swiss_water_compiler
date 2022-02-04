@@ -27,6 +27,9 @@ class ValuedNodeMixin:
     def value_type(self):
         return self._value_type
 
+    def get_value(self):
+        raise NotImplementedError
+
     def generate_code(self):
         """
         adds logic of getting the value of the node and storing it in $v0 ($f0-$f1 if double) to text and code segments

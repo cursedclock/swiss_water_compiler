@@ -43,6 +43,9 @@ class BaseLiteralNode(AbstractNode, ValuedNodeMixin):
     def get_type(value_type: str) -> PrimitiveTypes:
         return PrimitiveTypes[value_type]
 
+    def get_value(self):
+        return self._literal_value
+
 
 class StringLiteralNode(BaseLiteralNode):
     def generate_code(self):

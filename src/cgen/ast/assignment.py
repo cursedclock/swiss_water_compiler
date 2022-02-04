@@ -19,7 +19,7 @@ class AssignmentNode(AbstractNode):
     def _run_type_check(self):
         if self.id_entry.get(TYPE) != self.children[1].value_type:
             raise Exception
-        self.id_entry[VALUE] = self.children[1]._literal_value
+        self.id_entry[VALUE] = self.children[1].get_value()
 
     def generate_code(self):
         self.children[1].generate_code()
