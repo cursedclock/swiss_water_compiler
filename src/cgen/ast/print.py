@@ -6,12 +6,14 @@ from .literal import PrimitiveTypes
 class PrintStatementNode(AbstractNode):
     def __init__(self, ctx: NodeContext, children: [ValuedNodeMixin] = None):
         super(PrintStatementNode, self).__init__(ctx, children)
+        self.validate_semantics()
 
     def _run_scope_check(self):
         pass  # no checks needed
 
     def _run_type_check(self):
-        pass  # no checks needed
+        if any((v.value_type is not PrimitiveTypes for v in self.children)):
+            raise RuntimeError  # Print value must be a primitive
 
     def generate_code(self):
         for valued_node in self.children:
@@ -54,4 +56,4 @@ class PrintStatementNode(AbstractNode):
         self.ctx.text_segment += f'\tsyscall\n'
 
     def print_obj(self):
-        raise NotImplementedError
+        raise NotImplementedError # TODO implement print object

@@ -12,7 +12,7 @@ class AbstractNode:
         self.children = children if children is not None else []
         self.ctx = ctx
 
-    def run_type_check(self, raise_exception=False) -> bool:
+    def run_type_check(self, raise_exception=True) -> bool:
         try:
             self._run_type_check()
         except Exception as e:
@@ -25,7 +25,7 @@ class AbstractNode:
     def _run_type_check(self):
         raise NotImplementedError
 
-    def run_scope_check(self, raise_exception=False) -> bool:
+    def run_scope_check(self, raise_exception=True) -> bool:
         try:
             self._run_type_check()
         except Exception as e:
@@ -37,6 +37,18 @@ class AbstractNode:
 
     def _run_scope_check(self):
         raise NotImplementedError
+
+    def validate_semantics(self, raise_exception=True) -> bool:
+        try:
+            self._run_type_check()
+            self._run_scope_check()
+        except Exception as e:
+            if raise_exception:
+                raise e
+            else:
+                return False
+        return True
+
 
     def generate_code(self):
         raise NotImplementedError
