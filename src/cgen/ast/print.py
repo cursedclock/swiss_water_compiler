@@ -12,7 +12,7 @@ class PrintStatementNode(AbstractNode):
         pass  # no checks needed
 
     def _run_type_check(self):
-        if any((v.value_type is not PrimitiveTypes for v in self.children)):
+        if any((not isinstance(v.value_type, PrimitiveTypes) for v in self.children)):
             raise RuntimeError  # Print value must be a primitive
 
     def generate_code(self):
