@@ -56,3 +56,6 @@ class AbstractNode:
     @property
     def symbol_table(self):
         return self.ctx.symbol_table
+
+    def get_code(self):
+        return self.ctx.data_segment+'\n'+self.ctx.text_segment+'\n'+'\tli $v0, 10\n\tsyscall\n'

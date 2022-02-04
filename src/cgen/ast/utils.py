@@ -4,7 +4,8 @@ from cgen.symbol_table import SymbolTable
 class NodeContext:
     def __init__(self):
         self.symbol_table = SymbolTable()
-        self.text_segment = '.text\n'
+        self.text_segment = '.text\n' \
+                            'main:\n'
         self.data_segment = '.data\n' \
                             'TRUE:\t.asciiz\t"true"\n' \
                             'FALSE:\t.asciiz\t"false"\n' \

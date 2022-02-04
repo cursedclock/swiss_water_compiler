@@ -8,4 +8,4 @@ with open('test.txt', "r") as file:
     preprocessed_text = pre_process(text)
     result = parser.parse(preprocessed_text)
     result.generate_code()
-    print(result.ctx.data_segment+'\n'+result.ctx.text_segment)
+    print(result.get_code())
