@@ -5,8 +5,8 @@ from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleL
                      PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode, BlockNode, \
                      ReadLineNode, ReadIntegerNode, VarRefNode
 from cgen.ast.utils import NodeContext
-from src.cgen.ast.arithmetic import BinArithmeticNode
-from src.cgen.ast.assignment import AssignmentNode
+from cgen.ast.arithmetic import BinArithmeticNode
+from cgen.ast.assignment import AssignmentNode
 
 ctx = NodeContext()
 

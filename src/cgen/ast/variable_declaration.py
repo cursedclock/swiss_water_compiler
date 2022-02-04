@@ -1,6 +1,6 @@
-from src.cgen.ast.abstract import AbstractNode
-from src.cgen.ast.utils import NodeContext
-from src.cgen.symbol_table import TYPE, SIZE,ENTRY_TYPE, EntryType
+from cgen.ast.abstract import AbstractNode
+from cgen.ast.utils import NodeContext
+from cgen.symbol_table import TYPE, SIZE,ENTRY_TYPE, EntryType
 
 
 class VariableDeclarationNode(AbstractNode):

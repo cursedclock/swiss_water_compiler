@@ -1,6 +1,6 @@
-from src.cgen.ast.abstract import AbstractNode
-from src.cgen.ast.literal import PrimitiveTypes
-from src.cgen.ast.utils import NodeContext, ValuedNodeMixin
+from cgen.ast.abstract import AbstractNode
+from cgen.ast.literal import PrimitiveTypes
+from cgen.ast.utils import NodeContext, ValuedNodeMixin
 
 
 class BinArithmeticNode(AbstractNode, ValuedNodeMixin):
