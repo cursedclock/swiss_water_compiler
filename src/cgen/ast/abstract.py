@@ -27,7 +27,7 @@ class AbstractNode:
 
     def run_scope_check(self, raise_exception=True) -> bool:
         try:
-            self._run_type_check()
+            self._run_scope_check()
         except Exception as e:
             if raise_exception:
                 raise e

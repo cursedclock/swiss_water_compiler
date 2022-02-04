@@ -2,7 +2,7 @@ import ply.yacc as yacc
 from lexer import tokens
 
 from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode,\
-                     PrintStatementNode
+                     PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode
 from cgen.ast.utils import NodeContext
 
 ctx = NodeContext()
@@ -64,22 +64,29 @@ def p_VariableDecl(p):
 # Variable
 def p_Variable(p):
     '''Variable : Type ID'''
-    p[0] = p[1]
+    node = VariableDeclarationNode(ctx, [p[1], p[2]])
+    node.run_scope_check()
+    p[0] = node
 
 
 # Type
-def p_Type(p):
-    '''Type : INT
+def p_Type_Single(p):
+    """Type : INT
             | DOUBLE
             | BOOL
             | STRING
-            | ID
-            | INT OBRACKET CBRACKET
+            | ID"""
+    p[0] = TypeNode(ctx, p[1])
+
+
+def p_Type_Array(p):
+    """Type : INT OBRACKET CBRACKET
             | DOUBLE OBRACKET CBRACKET
             | BOOL OBRACKET CBRACKET
             | STRING OBRACKET CBRACKET
-            | IdBrack CBRACKET'''
-    p[0] = p[1]
+            | IdBrack CBRACKET"""
+    p[0] = ArrayTypeNode(ctx, p[1])
+
 
 def p_IdBrack(p):
     '''IdBrack : ID OBRACKET'''
