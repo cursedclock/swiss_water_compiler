@@ -3,7 +3,8 @@ mkdir -p out
 mkdir -p report
 cd ./tests
 prefix="t" ;
-dirlist=(`ls ${prefix}*.d`) ;
+#dirlist=(`ls ${prefix}*.d`) ;
+dirlist=(`find */${prefix}*.d`) ;
 OUTPUT_DIRECTORY="out/"
 TEST_DIRECTORY="tests/"
 REPORT_DIRECTORY="report/"

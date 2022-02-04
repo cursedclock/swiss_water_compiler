@@ -6,6 +6,7 @@ L0:	.asciiz	"hello "
 L1:	.asciiz	"world"
 
 .text
+main:
 	addi $sp, $sp, -4
 	addi $sp, $sp, -4
 	la $v0, L0
@@ -19,4 +20,7 @@ L1:	.asciiz	"world"
 	add $v0, $t0, $t1
 	move $a0, $v0
 	li $v0, 4
+	syscall
+
+	li $v0, 10
 	syscall

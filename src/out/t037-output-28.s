@@ -4,6 +4,7 @@ FALSE:	.asciiz	"false"
 NULL:	.asciiz	"null"
 
 .text
+main:
 	li $a0, 500
 	li $v0, 9
 	syscall
@@ -36,4 +37,7 @@ NULL:	.asciiz	"null"
 	move $v0, $a0
 	move $a0, $v0
 	li $v0, 4
+	syscall
+
+	li $v0, 10
 	syscall

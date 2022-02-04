@@ -27,7 +27,7 @@ def main(argv):
         result.generate_code()
 
 
-    with open("out/" + outputfile, "w") as output_file:
+    with open("out/" + outputfile, "w+") as output_file:
         output_file.write(result.get_code())
 
 
