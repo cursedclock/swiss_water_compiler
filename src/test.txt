@@ -1,3 +1,4 @@
+/*
 int main() {
     int a;
     int b;
@@ -7,4 +8,8 @@ int main() {
 
     Print(a);
     Print(b);
+}
+*/
+int main() {
+    Print("dsafs");
 }

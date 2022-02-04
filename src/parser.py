@@ -1,7 +1,8 @@
 import ply.yacc as yacc
 from lexer import tokens
 
-from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode
+from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode,\
+                     PrintStatementNode
 from cgen.ast.utils import NodeContext
 
 ctx = NodeContext()
@@ -89,7 +90,7 @@ def p_IdBrack(p):
 def p_FunctionDecl(p):
     '''FunctionDecl : Type ID OPAREN Formals CPAREN StmtBlock
                     | VOID ID OPAREN Formals CPAREN StmtBlock'''
-    p[0] = p[1]
+    p[0] = p[6]
 
 
 # Formals
@@ -138,11 +139,12 @@ def p_AccessMode(p):
 # StmtBlock
 def p_StmtBlock(p):
     '''StmtBlock : OBRACE block CBRACE'''
-    p[0] = p[1]
+    p[0] = p[2]
 
 def p_block(p):
     '''block : varDclBlock stmtStmtBlock
              | stmtStmtBlock'''
+    p[0] = p[1]
 
 def p_varDclBlock(p):
     '''varDclBlock : varDclBlock VariableDecl
@@ -171,7 +173,7 @@ def p_Stmt(p):
             | ReturnStmt
             | PrintStmt
             | StmtBlock'''
-    p[0] =p[1]
+    p[0] = p[1]
 
 
 # IfStmt
@@ -218,7 +220,7 @@ def p_ContinueStmt(p):
 # PrintStmt
 def p_PrintStmt(p):
     '''PrintStmt : PRINT OPAREN exprArg CPAREN SEMICOLON'''
-    p[0] = p[1]
+    p[0] = PrintStatementNode(ctx, p[3])
 
 
 def p_exprArg_Repeat(p):

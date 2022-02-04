@@ -7,4 +7,5 @@ with open('test.txt', "r") as file:
     text = file.read()
     preprocessed_text = pre_process(text)
     result = parser.parse(preprocessed_text)
-    print(result)
+    result.generate_code()
+    print(result.ctx.data_segment+'\n'+result.ctx.text_segment)
