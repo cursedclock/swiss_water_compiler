@@ -2,7 +2,8 @@ import ply.yacc as yacc
 from lexer import tokens
 
 from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode,\
-                     PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode
+                     PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode,\
+                     ReadLineNode, ReadIntegerNode
 from cgen.ast.utils import NodeContext
 
 ctx = NodeContext()
@@ -257,8 +258,6 @@ def p_Expr_other(p):
             | Expr binOp Expr
             | MINUS Expr %prec UMINUS
             | EXCL Expr
-            | READINTEGER OPAREN CPAREN
-            | READLINE OPAREN CPAREN
             | NEW ID
             | NEWARRAY OPAREN Expr COMMA Type CPAREN
             | ITOD OPAREN Expr CPAREN
@@ -269,6 +268,10 @@ def p_Expr_other(p):
             | __FUNC__'''
     p[0] = p[1]
 
+def p_Expr_Read(p):
+    '''Expr : READINTEGER OPAREN CPAREN
+            | READLINE OPAREN CPAREN'''
+    p[0] = ReadLineNode(ctx) if p[1] == 'ReadLine' else ReadIntegerNode(ctx)
 
 def p_Expr_IntLiteral(p):
     """Expr : INTLITERAL"""
