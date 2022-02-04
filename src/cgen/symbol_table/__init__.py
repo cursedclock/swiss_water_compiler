@@ -53,3 +53,4 @@ class SymbolTable:
 # scope is in the form of Id: entry, which entry is a dict contains some info
 # keys of this info
 TYPE = 'type'
+SIZE = 'size'

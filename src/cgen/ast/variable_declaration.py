@@ -1,7 +1,6 @@
-from typing import Any
 from src.cgen.ast.abstract import AbstractNode
 from src.cgen.ast.utils import NodeContext
-from src.cgen.symbol_table import TYPE
+from src.cgen.symbol_table import TYPE, SIZE
 
 
 class VariableDeclarationNode(AbstractNode):
@@ -15,7 +14,7 @@ class VariableDeclarationNode(AbstractNode):
         if self.symbol_table.id_defined_in_scope(self.children[1]):
             raise Exception
         else:
-            self.symbol_table.insert(self.children[1], {TYPE: self.children[0].type})
+            self.symbol_table.insert(self.children[1], {TYPE: self.children[0].type, SIZE: self.var_size})
 
     def generate_code(self):
-        return super().generate_code()
+        self.ctx.text_segment += f'\taddi $sp, $sp, -{self.var_size}\n'
