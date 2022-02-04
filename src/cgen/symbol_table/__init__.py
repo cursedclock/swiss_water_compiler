@@ -54,3 +54,4 @@ class SymbolTable:
 # keys of this info
 TYPE = 'type'
 SIZE = 'size'
+ENTRY_TYPE = 'entry_type'
