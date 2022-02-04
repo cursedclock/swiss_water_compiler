@@ -4,7 +4,7 @@ src_dir = os.path.dirname(os.path.dirname(current_dir))
 sys.path.append(src_dir)
 
 from src import pre_process
-from src.lexer import reserved, op_tokens, lexer
+from lexer import reserved, op_tokens, lexer
 
 import getopt
 def main(argv):

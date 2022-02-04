@@ -25,10 +25,10 @@ def main(argv):
         preprocessed_text = pre_process(text)
         result = parser.parse(preprocessed_text)
         result.generate_code()
-        
+
 
     with open("out/" + outputfile, "w") as output_file:
-        output_file.write(result.ctx.data_segment+'\n'+result.ctx.text_segment+'\n\tli $v0, 10\n\tsyscall\n')
+        output_file.write(result.get_code())
 
 
 if __name__ == "__main__":
