@@ -33,7 +33,7 @@ class SymbolTable:
 
     def get_type(self, key):
         entry = self.get(key)
-        entry_type = entry.get(TYPE)
+        entry_type = entry.get(ENTRY_TYPE)
         if entry_type and entry_type is EntryType.Class:
             return entry
         else:
