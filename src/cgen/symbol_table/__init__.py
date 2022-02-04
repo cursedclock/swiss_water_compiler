@@ -1,4 +1,5 @@
 from enum import Enum
+from collections import OrderedDict
 
 
 class EntryType(Enum):
@@ -22,7 +23,7 @@ class SymbolTable:
     def new_scope(self, ctx=None) -> None:
         ctx = ctx.copy() if ctx is not None else {'__func__': ''}
         self.context_stack.append(ctx)
-        self.scope_stack.append({})
+        self.scope_stack.append(OrderedDict())
 
     def get(self, key: str) -> object:
         lookups = (self.scope_stack[i].get(key) for i in range(len(self.scope_stack)-1, -1, -1))
@@ -48,6 +49,14 @@ class SymbolTable:
 
     def id_defined_in_scope(self, key: str) -> bool:
         return self.scope_stack[-1].get(key) is not None
+
+    def get_depth(self, key: str) -> int:
+        depth = 0
+        for scope in reversed(self.scope_stack.values()):
+            for entry_key, entry in reversed(scope.items()):
+                depth += entry[SIZE]
+                if entry_key == key:
+                    return depth
 
 
 # scope is in the form of Id: entry, which entry is a dict contains some info
