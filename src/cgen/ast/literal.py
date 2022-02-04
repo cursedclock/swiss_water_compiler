@@ -42,7 +42,7 @@ class BaseLiteralNode(AbstractNode, ValuedNodeMixin):
 class StringLiteralNode(BaseLiteralNode):
     def generate_code(self):
         label = self.ctx.label_generator.get_label()
-        self.ctx.data_segment += f'{label}:\t.asciiz\t"{self._literal_value}"\n'
+        self.ctx.data_segment += f'{label}:\t.asciiz\t{self._literal_value}\n'
         self.ctx.text_segment += f'\tla $v0, {label}\n'
 
 
