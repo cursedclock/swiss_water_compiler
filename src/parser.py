@@ -66,7 +66,7 @@ def p_VariableDecl(p):
 # Variable
 def p_Variable(p):
     '''Variable : Type ID'''
-    node = VariableDeclarationNode(ctx, [p[0], p[1]])
+    node = VariableDeclarationNode(ctx, [p[1], p[2]])
     node.run_scope_check()
     p[0] = node
 
