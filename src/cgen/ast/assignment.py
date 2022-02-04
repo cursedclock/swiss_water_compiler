@@ -12,9 +12,7 @@ class AssignmentNode(AbstractNode):
         self.run_type_check(True)
 
     def _run_scope_check(self):
-        entry = self.symbol_table.get(self.children[0])
-        if entry is None:
-            raise Exception
+        entry = self.symbol_table.get(self.children[0].var_name)
         self.id_entry = entry
 
     def _run_type_check(self):
@@ -24,5 +22,5 @@ class AssignmentNode(AbstractNode):
 
     def generate_code(self):
         self.children[1].generate_code()
-        offset = self.symbol_table.get_depth(self.children[0])
+        offset = self.symbol_table.get_depth(self.children[0].var_name)
         self.ctx.text_segment += f'\tsw $v0, {offset}($sp)\n'

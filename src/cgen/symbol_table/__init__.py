@@ -43,6 +43,14 @@ class SymbolTable:
         else:
             raise RuntimeError  # identifier does not refer to type
 
+    def get_var(self, key):
+        entry = self.get(key)
+        entry_type = entry.get(ENTRY_TYPE)
+        if entry_type and entry_type is EntryType.Variable:
+            return entry
+        else:
+            raise RuntimeError  # identifier does not refer to type
+
     def get_from_ctx(self, key: str) -> object:
         lookups = (self.context_stack[i].get(key) for i in range(len(self.context_stack)-1, -1, -1))
         for lookup in lookups:

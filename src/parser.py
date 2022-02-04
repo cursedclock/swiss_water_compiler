@@ -3,7 +3,7 @@ from lexer import tokens
 
 from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode,\
                      PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode, BlockNode, \
-                     ReadLineNode, ReadIntegerNode
+                     ReadLineNode, ReadIntegerNode, VarRefNode
 from cgen.ast.utils import NodeContext
 from src.cgen.ast.assignment import AssignmentNode
 
@@ -363,7 +363,7 @@ def p_LValue(p):
               | Expr DOT ID
               | IdBrack Expr CBRACKET
               | Expr OBRACKET Expr CBRACKET'''
-    p[0] = p[1]
+    p[0] = VarRefNode(ctx, p[1])
 
 
 # Call
