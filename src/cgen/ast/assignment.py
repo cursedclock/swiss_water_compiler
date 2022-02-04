@@ -1,6 +1,7 @@
 from src.cgen.ast.abstract import AbstractNode
 from src.cgen.ast.utils import NodeContext
 from src.cgen.symbol_table import TYPE, VALUE
+from .literal import PrimitiveTypes
 
 
 class AssignmentNode(AbstractNode):
@@ -23,4 +24,7 @@ class AssignmentNode(AbstractNode):
     def generate_code(self):
         self.children[1].generate_code()
         offset = self.symbol_table.get_depth(self.children[0].var_name)
-        self.ctx.text_segment += f'\tsw $v0, {offset}($sp)\n'
+        if self.children[1].value_type is PrimitiveTypes.Double:
+            self.ctx.text_segment += f'\ts.d $f0, {offset}($sp)\n'
+        else:
+            self.ctx.text_segment += f'\tsw $v0, {offset}($sp)\n'
