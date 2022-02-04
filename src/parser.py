@@ -5,6 +5,7 @@ from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleL
                      PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode, BlockNode, \
                      ReadLineNode, ReadIntegerNode, VarRefNode
 from cgen.ast.utils import NodeContext
+from src.cgen.ast.arithmetic import BinArithmeticNode
 from src.cgen.ast.assignment import AssignmentNode
 
 ctx = NodeContext()
@@ -295,7 +296,11 @@ def p_Expr_other(p):
             | BTOI OPAREN Expr CPAREN
             | __LINE__
             | __FUNC__'''
-    p[0] = p[1]
+    if len(p) > 3:
+        p[0] = BinArithmeticNode(ctx, [p[1], p[2], p[3]])
+    else:
+        p[0] = p[1]
+
 
 def p_Expr_Read(p):
     '''Expr : READINTEGER OPAREN CPAREN
@@ -304,7 +309,7 @@ def p_Expr_Read(p):
 
 def p_Expr_IntLiteral(p):
     """Expr : INTLITERAL"""
-    p[0] = IntLiteralNode(ctx, 'INTLITERAL', p[1])
+    p[0] = IntLiteralNode(ctx, 'INTLITERAL', int(p[1]))
 
 
 def p_Expr_DoubleLiteral(p):

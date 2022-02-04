@@ -8,11 +8,13 @@ class BinArithmeticNode(AbstractNode, ValuedNodeMixin):
     # child 0 -> leftOp, 1 -> operator, 2 -> rightOp
     def __init__(self, ctx: NodeContext, children):
         super().__init__(ctx, children)
-        self.run_type_check(True)
-        self.value_type = self.children[0].value_type
+        self._value_type = self.children[0].value_type
+        # self.run_type_check(True)
 
     def _run_type_check(self):
         if self.children[0].value_type != PrimitiveTypes.Int or self.children[2].value_type != PrimitiveTypes.Int:
+            print(self.children[0].value_type)
+            print(PrimitiveTypes.Int)
             raise Exception
 
     def generate_code(self):
@@ -33,10 +35,10 @@ class BinArithmeticNode(AbstractNode, ValuedNodeMixin):
 
     def get_value(self):
         if self.children[1] == '+':
-            return self.children[0].get_value() + self.children[1].get_value()
+            return self.children[0].get_value() + self.children[2].get_value()
         if self.children[1] == '-':
-            return self.children[0].get_value() - self.children[1].get_value()
+            return self.children[0].get_value() - self.children[2].get_value()
         if self.children[1] == '*':
-            return self.children[0].get_value() * self.children[1].get_value()
+            return self.children[0].get_value() * self.children[2].get_value()
         if self.children[1] == '/':
-            return self.children[0].get_value() / self.children[1].get_value()
+            return self.children[0].get_value() / self.children[2].get_value()
