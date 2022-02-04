@@ -1,6 +1,11 @@
 import ply.yacc as yacc
 from lexer import tokens
 
+from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode
+from cgen.ast.utils import NodeContext
+
+ctx = NodeContext()
+
 precedence = (
     ('right', 'ASSIGN', 'PEQ', 'MEQ', 'TEQ', 'DEQ'),  # assignments
     ('left', 'OR'),  # logical
@@ -229,10 +234,8 @@ def p_optionalExpr(p):
 
 
 # Expr
-def p_Expr(p):
-    '''Expr : LValue assignment Expr
-            | Constant
-            | LValue
+def p_Expr_other(p):
+    '''Expr : LValue
             | THIS
             | Call
             | OPAREN Expr CPAREN
@@ -250,6 +253,37 @@ def p_Expr(p):
             | __LINE__
             | __FUNC__'''
     p[0] = p[1]
+
+
+def p_Expr_IntLiteral(p):
+    """Expr : INTLITERAL"""
+    p[0] = IntLiteralNode(ctx, 'INTLITERAL', p[1])
+
+
+def p_Expr_DoubleLiteral(p):
+    """Expr : DOUBLELITERAL"""
+    p[0] = DoubleLiteralNode(ctx, 'DOUBLELITERAL', p[1])
+
+
+def p_Expr_BOOLEANLITERAL(p):
+    """Expr : BOOLEANLITERAL"""
+    p[0] = BoolLiteralNode(ctx, 'BOOLEANLITERAL', p[1])
+
+
+def p_Expr_STRINGLITERAL(p):
+    """Expr : STRINGLITERAL"""
+    p[0] = StringLiteralNode(ctx, 'STRINGLITERAL', p[1])
+
+
+def p_Expr_Null(p):
+    """Expr : NULL"""
+    p[0] = NullLiteralNode(ctx, 'NULL', p[1])
+
+
+def p_Expr_Assignment(p):
+    '''Expr : LValue assignment Expr'''
+    p[0] = p[1]
+
 
 def p_assignment(p):
     '''assignment : ASSIGN
@@ -301,16 +335,6 @@ def p_Actuals(p):
 def p_exprActuals(p):
     '''exprActuals : exprActuals COMMA Expr
                    | Expr'''
-    p[0] = p[1]
-
-
-# Constant
-def p_Constant(p):
-    '''Constant : INTLITERAL
-                | DOUBLELITERAL
-                | BOOLEANLITERAL
-                | STRINGLITERAL
-                | NULL'''
     p[0] = p[1]
 
 
