@@ -66,7 +66,7 @@ tokens = (
     'ID'
 )
 
-op_tokens = { 
+op_tokens = {
     '=': 'ASSIGN',
     '+': 'PLUS',
     '-': 'MINUS',
@@ -157,7 +157,7 @@ def t_ID(t):
     elif t.value in boolean_literals:
         t.type = 'BOOLEANLITERAL'
     return t
-    
+
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
@@ -175,4 +175,3 @@ def get_lexer():
 
 def new_lexer():
     return lex.lex()
-
