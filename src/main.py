@@ -2,6 +2,7 @@ import sys, getopt
 
 from parser import get_parser
 from preprocessor import pre_process
+from parser import ParseError
 def main(argv):
     inputfile = ''
     outputfile = ''
@@ -18,17 +19,24 @@ def main(argv):
             inputfile = arg
         elif opt in ("-o", "--ofile"):
             outputfile = arg
-
-    with open("tests/" + inputfile, "r") as input_file:
-        parser = get_parser()
-        text = input_file.read()
-        preprocessed_text = pre_process(text)
-        result = parser.parse(preprocessed_text)
-        result.generate_code()
-
-
     with open("out/" + outputfile, "w+") as output_file:
-        output_file.write(result.get_code())
+        try:
+            with open("tests/" + inputfile, "r") as input_file:
+                parser = get_parser()
+                text = input_file.read()
+                preprocessed_text = pre_process(text)
+                result = parser.parse(preprocessed_text)
+                result.generate_code()
+                output_file.write(result.get_code())
+        except ParseError as e:
+                output_file.write('.data\nmsg:\t.asciiz\t"Syntax Error"\n'+
+                                  '.text\nmain:\n\tla $a0, msg\n'+
+                                  '\tli $v0, 4\n\tsyscall'+'\n\tli $v0, 10\n\tsyscall\n')
+        except Exception as e:
+                output_file.write('.data\nmsg:\t.asciiz\t"Semantic Error"\n'+
+                                  '.text\nmain:\n\tla $a0, msg\n'+
+                                  '\tli $v0, 4\n\tsyscall'+'\n\tli $v0, 10\n\tsyscall\n')
+
 
 
 if __name__ == "__main__":
