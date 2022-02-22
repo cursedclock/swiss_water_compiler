@@ -9,7 +9,7 @@ class NodeContext:
         self.data_segment = '.data\n' \
                             'TRUE:\t.asciiz\t"true"\n' \
                             'FALSE:\t.asciiz\t"false"\n' \
-                            'NULL:\t.asciiz\t"null"\n'
+                            'NULL:\t.asciiz\t"null"\n' + r'NEWLINE:    .asciiz "\n"'+'\n'
         self.label_generator = LabelGenerator()
 
 

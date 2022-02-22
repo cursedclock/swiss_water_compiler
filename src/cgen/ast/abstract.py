@@ -58,4 +58,10 @@ class AbstractNode:
         return self.ctx.symbol_table
 
     def get_code(self):
-        return self.ctx.data_segment+'\n'+self.ctx.text_segment+'\n'+'\tli $v0, 10\n\tsyscall\n'
+        return self.ctx.data_segment+'\n'+self.ctx.text_segment+'\n'+'\tli $v0, 10\n\tsyscall\n'+'''
+print_nl:
+	la $a0, NEWLINE
+	li $v0, 4
+	syscall
+	jr	$ra
+'''

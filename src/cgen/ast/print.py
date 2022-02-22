@@ -31,6 +31,7 @@ class PrintStatementNode(AbstractNode):
         self.ctx.text_segment += f'\tmove $a0, $v0\n'
         self.ctx.text_segment += f'\tli $v0, 1\n'
         self.ctx.text_segment += f'\tsyscall\n'
+        self.ctx.text_segment += f'\tjal print_nl\n'
 
     def print_bool(self):
         label = self.ctx.label_generator.get_label()
@@ -39,21 +40,25 @@ class PrintStatementNode(AbstractNode):
         self.ctx.text_segment += f'\tla $a0, TRUE\n'
         self.ctx.text_segment += f'{label}:\tli $v0, 4\n'
         self.ctx.text_segment += f'\tsyscall\n'
+        self.ctx.text_segment += f'\tjal print_nl\n'
 
     def print_string(self):
         self.ctx.text_segment += f'\tmove $a0, $v0\n'
         self.ctx.text_segment += f'\tli $v0, 4\n'
         self.ctx.text_segment += f'\tsyscall\n'
+        self.ctx.text_segment += f'\tjal print_nl\n'
 
     def print_double(self):
         self.ctx.text_segment += f'\tmov.d $f12, $f0\n'
         self.ctx.text_segment += f'\tli $v0, 3\n'
         self.ctx.text_segment += f'\tsyscall\n'
+        self.ctx.text_segment += f'\tjal print_nl\n'
 
     def print_null(self):
         self.ctx.text_segment += f'\tla $a0, NULL\n'
         self.ctx.text_segment += f'\tli $v0, 4\n'
         self.ctx.text_segment += f'\tsyscall\n'
+        self.ctx.text_segment += f'\tjal print_nl\n'
 
     def print_obj(self):
         raise NotImplementedError # TODO implement print object
