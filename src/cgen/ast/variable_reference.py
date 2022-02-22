@@ -1,7 +1,7 @@
 from .abstract import AbstractNode
 from .utils import ValuedNodeMixin, NodeContext
 from .literal import PrimitiveTypes
-from cgen.symbol_table import TYPE, VALUE
+from ..symbol_table import TYPE, VALUE
 
 
 class VarRefNode(AbstractNode, ValuedNodeMixin):

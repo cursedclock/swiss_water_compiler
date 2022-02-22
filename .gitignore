@@ -6,5 +6,5 @@ test/lexer/out
 test/lexer/report
 src/parser.out
 src/parsetab.py
-src/report/*
-src/out/*
+test/cgen/report/*
+test/cgen/out/*

@@ -1,8 +1,11 @@
-import sys, getopt
+import os, sys, getopt
 
-from parser import get_parser
-from preprocessor import pre_process
-from parser import ParseError
+current_dir = os.getcwd()
+src_dir = os.path.dirname(os.path.dirname(current_dir))
+sys.path.append(src_dir)
+
+from src import pre_process, get_parser, ParseError
+
 def main(argv):
     inputfile = ''
     outputfile = ''

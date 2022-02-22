@@ -1,6 +1,6 @@
-from cgen.ast.abstract import AbstractNode
-from cgen.ast.utils import NodeContext
-from cgen.symbol_table import TYPE, VALUE
+from .abstract import AbstractNode
+from .utils import NodeContext
+from ..symbol_table import TYPE, VALUE
 from .literal import PrimitiveTypes
 
 

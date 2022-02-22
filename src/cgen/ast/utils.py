@@ -1,4 +1,4 @@
-from cgen.symbol_table import SymbolTable
+from ..symbol_table import SymbolTable
 
 
 class NodeContext:

@@ -1,6 +1,6 @@
 from .abstract import AbstractNode
 from .utils import NodeContext
-from cgen.symbol_table import TYPE, SIZE,ENTRY_TYPE, EntryType
+from ..symbol_table import TYPE, SIZE,ENTRY_TYPE, EntryType
 
 
 class VariableDeclarationNode(AbstractNode):

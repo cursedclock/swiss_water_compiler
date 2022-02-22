@@ -1,12 +1,12 @@
 import ply.yacc as yacc
-from lexer import tokens
+from .lexer import tokens
 
-from cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode,\
+from .cgen.ast import IntLiteralNode, NullLiteralNode, StringLiteralNode, DoubleLiteralNode, BoolLiteralNode,\
                      PrintStatementNode, ArrayTypeNode, TypeNode, VariableDeclarationNode, BlockNode, \
                      ReadLineNode, ReadIntegerNode, VarRefNode
-from cgen.ast.utils import NodeContext
-from cgen.ast.arithmetic import BinArithmeticNode
-from cgen.ast.assignment import AssignmentNode
+from .cgen.ast.utils import NodeContext
+from .cgen.ast.arithmetic import BinArithmeticNode
+from .cgen.ast.assignment import AssignmentNode
 
 ctx = NodeContext()
 
