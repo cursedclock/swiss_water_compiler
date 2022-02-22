@@ -1,0 +1,13 @@
+venv
+.venv
+.idea
+__pycache__
+test/lexer/out
+test/lexer/report
+src/parser.out
+src/parsetab.py
+test/cgen/report/*/*.s
+test/cgen/report/*/*.out
+test/cgen/report/*/*.txt
+test/cgen/out/*/*.s
+test/cgen/out/*/*.out
